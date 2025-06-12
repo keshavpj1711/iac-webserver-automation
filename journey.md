@@ -71,3 +71,43 @@ For learning purposes we are going with simplest approach i.e:
   - In order to not run into permission issues, since this project is supposed to be my first exp with this
   - **Do NOTE that in production it's better to use minimal permissions**
 
+
+# Setting up Pulumi 
+
+When we try to setup new pulumi project by:
+
+```bash
+pulumi new aws-python
+```
+
+- Pulumi needs to authenticate you with Pulumi Cloud to manage the infrastructure state.
+- Think of Pulumi Cloud like a secure storage locker where Pulumi keeps track of what infrastructure you have created.
+
+## Why does Pulumi need to know all this?
+- **State Management**: Pulumi needs to remember what resources you've created
+- **Team Collaboration**: Multiple people can work on the same infrastructure
+- **Change Tracking**: See what changed between deployments
+- **Free Service**: Pulumi Cloud's free tier is perfect for learning
+
+## After login
+
+- Basic info about project name and project description
+- Asked about AWS region to deploy into, by default it was us-east-1
+- A venv was created which i removed, since i was using conda
+
+## After the command was done running
+
+I had ready to use Infrastructure as a code project.
+
+### `__main.py__`
+
+This where we will write our Python code that describes what AWS resources we want.
+
+> In the begining it's auto configured to create a simple S3 bucket as an example
+
+### `Pulumi.yaml`
+
+Project Configuration: 
+- basic info about your project 
+  - like what prog lang you are using etc.
+

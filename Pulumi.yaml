@@ -1,0 +1,10 @@
+name: iac-webserver-automation
+description: This project creates a web server on AWS using Pulumi and Python.
+runtime:
+  name: python
+  options:
+    toolchain: pip
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-python
