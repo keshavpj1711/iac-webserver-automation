@@ -97,7 +97,7 @@ pulumi new aws-python
 
 ## After the command was done running
 
-I had ready to use Infrastructure as a code project.
+I had a ready to use Infrastructure as a code project.
 
 ### `__main.py__`
 
@@ -111,3 +111,19 @@ Project Configuration:
 - basic info about your project 
   - like what prog lang you are using etc.
 
+## Development Workflow to remember with pulumi
+
+```bash
+# 1. Write/modify Python code in __main__.py
+# 2. Preview what will happen
+pulumi preview
+
+# 3. Deploy the changes
+pulumi up
+
+# 4. Check what was created
+pulumi stack output
+
+# 5. Clean up when done
+pulumi destroy
+```
