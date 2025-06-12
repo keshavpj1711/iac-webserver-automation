@@ -41,6 +41,33 @@ You can use **loops**, **functions**, **error handling** of python and all other
   - Need csv to configure servers you can use pandas, this is how python libs can be useful
 
 
+# Setting up AWS
 
+So apps and programs that we build might use AWS directly and when they use their access is not managed by AWS web console it's managed using something known as IAM.
 
+## What is IAM?
+
+IAM is like security guard of AWS. It manages who can access what's in your AWS account. 
+Even though you might be the owner, you'll still need to create proper creds for programmatic access.
+
+## Why create a separate user instead of using root credentials?
+
+- **Security**: If these credentials get compromised, you can delete just this user
+- **Best Practice**: AWS strongly recommends never using root credentials for daily tasks, obviously!!
+- **Granular Control:** You can give this user only the permissions it needs
+
+## Creating a user in IAM Dashboard
+
+Below are some of the things i encountered which i feel like should be kept in mind
+
+### Setting Permission
+
+For learning purposes we are going with simplest approach i.e:
+- Choosing **Attach existing policies directly**
+  - Since there are many options available to us: 
+    - Adding user to a group(where this group has it's own set policies): This is a very solid option for handling multiple users
+    - Copying permissions of an existing user 
+- From Attach existing policy i chose: **AdministratorAccess** 
+  - In order to not run into permission issues, since this project is supposed to be my first exp with this
+  - **Do NOTE that in production it's better to use minimal permissions**
 

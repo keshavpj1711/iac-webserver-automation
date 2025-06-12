@@ -1,2 +1,2 @@
-# iac-webserver-automation
-To apply Infrastructure as Code (IaC) principles using Pulumi to configure and manage cloud infrastructure(AWS) programmatically.
+# Infrastructure as Code Web Server
+This project creates a web server on AWS using Pulumi and Python.
