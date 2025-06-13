@@ -15,13 +15,6 @@ VPC is like your own private neighbourhood in AWS. Just like our house is in a s
 - **Security**: You control traffic flow in and out of your network
 - **Organization**: All your related resources live in the same "neighborhood"
 
-## Real-world analogy to get a good idea of things:
-
-- **VPC** = Your gated community
-- **Subnets** = Different streets in your community
-- **Internet Gateway** = The main entrance/exit to your community
-- **Route Tables** = Street signs telling traffic where to go
-
 ## What does DNS support means?
 
 DNS (Domain Name System) is like a phone book for the internet. When enabled in your VPC:
