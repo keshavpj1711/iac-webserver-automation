@@ -4,6 +4,7 @@ import pulumi_aws as aws
 import os
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
+from pulumi_aws.ec2 import tag
 
 
 def create_sec_grp(vpc):
@@ -122,3 +123,55 @@ def create_key_pair():
   )
 
   return key_pair
+
+
+def create_ec2_instance(subnet, sec_grp, key_pair): 
+  """
+    Create a t2.micro EC2 instance with Apache web server installed
+    Subnet is req to place the instance in 
+    Security group for firewall access
+    Key pair for SSH access
+  """
+
+  user_script = ""  
+  # Fetching data from bash script 
+  try: 
+    with open("user_script.sh", "r") as f:
+      user_script = f.read()
+  except FileNotFoundError:
+    raise Exception(f"user_script.sh file not found. Please create the file")
+  except Exception as e:
+    raise Exception(f"Error reading user_script.sh: {e}")
+
+  # Getting the latest Amazon Linux 2 AMI
+  ami = aws.ec2.get_ami(
+    most_recent=True,
+    owners=["amazon"],  # ensures it's an official ami owned by amazon
+    filters=[
+      {
+        "name": "name",
+        "values": ["amzn2-ami-hvm-*-x86_64-gp2"]
+        # hvm virtualization -> modern virtualization type
+        # x86_64 -> 64 bit architecture
+      }
+    ]
+  )
+
+  # Creating EC2 instance
+  instance = aws.ec2.Instance(
+    "web-server-instance",
+    instance_type="t2.micro",
+    ami=ami.id,
+    subnet_id=subnet.id,
+    vpc_security_group_ids=[sec_grp.id],
+    key_name=key_pair.key_name,
+    user_data=user_script,
+    tags={
+      "Name": "web-server-instance"
+    }
+  )
+
+  return instance
+
+
+
