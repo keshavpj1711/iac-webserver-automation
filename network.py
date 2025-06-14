@@ -1,6 +1,6 @@
 import pulumi 
 import pulumi_aws as aws
-from pulumi_aws.ec2 import route_table, tag 
+from pulumi_aws.ec2 import route, route_table, tag 
 
 
 def create_vpc(): 
@@ -36,3 +36,52 @@ def create_public_subnet(vpc):
   )
 
   return public_subnet
+
+
+def create_internet_gateway(vpc):
+  """
+    Creates an Internet Gateway and attaches it to the provided VPC
+  """
+  internet_gateway = aws.ec2.InternetGateway(
+    "web-server-igw",
+    vpc_id=vpc.id,
+    tags={
+      "Name": "web-server-igw"
+    }
+  )
+
+  return internet_gateway
+
+
+def create_route_tables(vpc, igw):
+  """
+    Creates a route table with a route to the internet gateway
+  """
+  route_table = aws.ec2.RouteTable(
+    "web-server-route-table",
+    vpc_id=vpc.id,
+    routes=[
+      {
+        "cidr_block": "0.0.0.0/0",  # this route is to match all internet traffic(anywhere on the internet)
+        "gateway_id": igw.id,  # to know where to send the traffic to 
+      }
+    ],
+    tags={
+      "Name": "web-server-route-table"
+    }
+  )
+
+  return route_table
+
+
+def create_route_table_assc(subnet, route_table):
+  """
+    Associates a route table with a subnet 
+  """
+  association = aws.ec2.RouteTableAssociation(
+    "web-server-rta",
+    subnet_id=subnet.id,
+    route_table_id=route_table.id,
+  )
+
+  return association
