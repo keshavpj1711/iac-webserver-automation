@@ -17,19 +17,26 @@ sec_group = create_sec_grp(vpc)
 key_pair = create_key_pair()
 web_server = create_ec2_instance(public_subnet, sec_group, key_pair)
 
-# Export the name of the resources
-# This is basically to track what resources we have used in our pulumi stack
-pulumi.export('vpc', vpc.id)
-pulumi.export('subnet_id', public_subnet.id)
-pulumi.export('internet_gateway_id', igw.id)
-pulumi.export('route_table_id', route_table.id)
-pulumi.export('route_table_assc_id', route_table_association.id)
+# Export network IDs
+pulumi.export("vpc_id", vpc.id)
+pulumi.export("subnet_id", public_subnet.id)
+pulumi.export("internet_gateway_id", igw.id)
+pulumi.export("route_table_id", route_table.id)
 
+# Export compute IDs
 pulumi.export("security_group_id", sec_group.id)
 pulumi.export("key_pair_name", key_pair.key_name)
 
-# Export web server information
+# Export web server information 
 pulumi.export("instance_id", web_server.id)
+pulumi.export("instance_type", "t2.micro")
 pulumi.export("public_ip", web_server.public_ip)
+pulumi.export("private_ip", web_server.private_ip)
 pulumi.export("website_url", pulumi.Output.concat("http://", web_server.public_ip))
+pulumi.export("ssh_command", pulumi.Output.concat("ssh -i web-server-key ec2-user@", web_server.public_ip))
+pulumi.export("availability_zone", web_server.availability_zone)
 
+# What these exports does is it makes anyone working on this get to know about the stack better
+# So if you have better exports it'll be helpful 
+# to the person who is just starting to work or 
+# just want to know about the current state of the stack
