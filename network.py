@@ -1,3 +1,4 @@
+# A place to define all the network infrasture for our app
 import pulumi 
 import pulumi_aws as aws
 from pulumi_aws.ec2 import route, route_table, tag 
