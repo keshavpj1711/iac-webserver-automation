@@ -9,30 +9,16 @@ This is a place where I discuss what each of the things is, before getting my ha
 - **Internet Gateway** = The main entrance/exit to your community
 - **Route Tables** = Street signs telling traffic where to go
 
-## For incoming traffic(For people visiting your website)
+## For incoming traffic(For people visiting your website the incoming traffic)
 
 ```text
-Internet User (Browser)
-    ↓
-Internet Gateway (main entrance to your VPC)
-    ↓
-Route Table (checks: "Where is 10.0.1.15?" → "That's local, go to subnet")
-    ↓
-Public Subnet (your street)
-    ↓
-Your Web Server (10.0.1.15)
+Internet User → Internet Gateway → Route Table → Public Subnet → Security Group (checks port 80) → EC2 Instance (Apache serves webpage)
 ```
 
-## For outgoing traffic(For downloading updates for server)
+## For outgoing traffic(For downloading updates for server or you managing your server)
 
 ```text 
-Your Web Server (wants to reach update.amazon.com)
-    ↓
-Route Table (checks: "Where is update.amazon.com?" → "That's 0.0.0.0/0, go to IGW")
-    ↓
-Internet Gateway
-    ↓
-Internet (reaches Amazon's update servers)
+Your Computer (SSH client) → Internet Gateway → Route Table → Public Subnet → Security Group (checks port 22) → EC2 Instance (SSH server)
 ```
 
 ### What does it actually mean by sever downloading updates?
@@ -53,5 +39,8 @@ Since our web server is running on a amazon linux machine it needs to run update
 
 ## Compute Resources
 
+- [Security Groups](./compute_resources/SecurityGroups.md)
+- [SSH Key pairs](./compute_resources/SSHKeyPairs.md)
+- [EC2 Instance](./compute_resources/EC2Instance.md)
 
 
