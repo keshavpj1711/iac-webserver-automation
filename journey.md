@@ -127,3 +127,14 @@ pulumi stack output
 # 5. Clean up when done
 pulumi destroy
 ```
+
+# Buiding our Network Infrastructure for our web-server
+
+So first we build all the components that make up our web-server that is:
+- **VPC**: Virtual Private Cloud for our web-server to seperate it out from AWS and treat it as a network of it's own. 
+  - In our case **CIDR: `10.0.0.0/16`** which means we have roughly ~65000 IPs in our hand
+- **Subnet**: Defining subnets so that we can have a sub-network where our Web-server can live
+  - Our public subnet is defined as `10.0.1.0/24`  
+- **Internet Gateway**: This is where we will connect to the whole internet, it's like a gate where the internet meets our VPC.
+- **Route Tables**: These are routes indicating where to direct the traffic to.
+- **Route Table Association**: Without these route tables are useless as these are what connects these public subnet to the route tables.
