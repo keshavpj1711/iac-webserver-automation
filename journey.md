@@ -138,3 +138,17 @@ So first we build all the components that make up our web-server that is:
 - **Internet Gateway**: This is where we will connect to the whole internet, it's like a gate where the internet meets our VPC.
 - **Route Tables**: These are routes indicating where to direct the traffic to.
 - **Route Table Association**: Without these route tables are useless as these are what connects these public subnet to the route tables.
+
+# Building Compute Resources
+
+Now when we are done with our network infrastructure we start with our actual server and for that we need a few things beforehand: 
+- **Security Groups:** Security groups are our virtual firewalls that we setup to protect our web-server from the internet.
+  - basically this will only allow specific types of traffic.
+  - We estb Ingress(inbound -> for HTTP(80) and SSH(22) access) and Egress(outbound -> connecting our server to outer world) rules
+
+- **SSH Key Pairs**: These needed to be generated and fed into the server for SSH access to the web-server.
+  - we create public and private key pair according to AWS compatible format
+
+- **EC2 Instance**: Once all this is done we need our machine on which we will have our server that is what EC2(Elastic Compute Cloud) instance creates that is a VM
+  - Here for learning purposes i went with the t2.micro with 1vCPU, 1GB RAM and a EBS storage 
+  - One thing which i found new was the AMI(amazon machine image) which is used here to create VM(virtual servers in this case) here.
