@@ -152,3 +152,64 @@ Now when we are done with our network infrastructure we start with our actual se
 - **EC2 Instance**: Once all this is done we need our machine on which we will have our server that is what EC2(Elastic Compute Cloud) instance creates that is a VM
   - Here for learning purposes i went with the t2.micro with 1vCPU, 1GB RAM and a EBS storage 
   - One thing which i found new was the AMI(amazon machine image) which is used here to create VM(virtual servers in this case) here.
+
+
+# Pulumi exports 
+
+- Pulumi exports are like **summary cards** or **dashboard** for your **infrastructure stack**.
+- They make critical information about your deployed resources easily accessible to anyone who needs to understand or work with your infrastructure.
+
+### In simple terms 
+
+What these exports does is, it makes anyone working on this get to know about the stack better:
+- So if you have better exports it'll be helpful to the person who is just starting to work or, 
+- Just want to know about the current state of the stack
+
+### Why should we create them
+
+- **No AWS console hunting**: All critical info in one command
+- **Automation-ready**: Scripts can use pulumi stack output public_ip
+- **Troubleshooting**: Quick access to resource IDs and connection details
+
+### Few commands
+
+```bash
+# Get all outputs
+pulumi stack output
+
+# Get specific outputs
+pulumi stack output public_ip
+pulumi stack output website_url
+pulumi stack output ssh_command
+
+# Get outputs in JSON format
+pulumi stack output --json
+
+
+# Check current stack info
+pulumi stack
+
+# View stack history (shows all deployments)
+pulumi stack history
+
+# Export state for backup (optional)
+pulumi stack export --file backup-$(date +%Y%m%d).json
+```
+
+# State Management in IaC
+
+State is like a memory book that keeps track of what infrastructure resources actually exist in the real world versus what our code says should exist.
+
+So basically 
+- **Your Python code** = The blueprint (what you want)
+- **AWS resources** = The actual building (what exists)
+- **State file** = The construction log (what Pulumi knows was built)
+
+### What state contains?
+
+It contains your actual infrastructure.
+
+### How State helps us?
+
+- Without state management every `pulumi up` would try to create everything from scratch.
+- Without this we wouldn't be able to see the difference between the previous infrastructure which is still running on AWS and the new infrastructure we are going to implement through our python code. 
