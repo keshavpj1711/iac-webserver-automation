@@ -44,9 +44,14 @@ Since our web server is running on a amazon linux machine it needs to run update
 
 # Table of Contents
 
-- [VPC(Virtual Private Cloud)](./VPC.md)
-- [Subnets](./Subnet.md)
-- [Internet Gateways](./InternetGateway.md)
+## Network Infrastructure
+
+- [VPC(Virtual Private Cloud)](./network_infra/VPC.md)
+- [Subnets](./network_infra/Subnet.md)
+- [Internet Gateways](./network_infra/InternetGateway.md)
+- [Route Tables](./network_infra/RouteTables.md)
+
+## Compute Resources
 
 
 
