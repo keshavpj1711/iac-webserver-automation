@@ -11,6 +11,12 @@ on:
       - 'Pulumi.yaml'
       - 'user_script.sh'
 
+permissions:
+  # in order to allow github actions to permit commenting on PRs 
+  contents: read
+  pull-requests: write   
+  issues: write
+
 jobs: 
   # GitHub provides a clean vm everytime this workflow runs 
   # so the initial steps have to listed out
