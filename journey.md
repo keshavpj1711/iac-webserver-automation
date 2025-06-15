@@ -213,3 +213,63 @@ It contains your actual infrastructure.
 
 - Without state management every `pulumi up` would try to create everything from scratch.
 - Without this we wouldn't be able to see the difference between the previous infrastructure which is still running on AWS and the new infrastructure we are going to implement through our python code. 
+
+# GitHub Actions CI/CD
+
+## What is it?
+
+**GitHub Actions** is a **CI/CD platform** built into GitHub that lets us automate tasks when certain events happen in our repo.
+
+Before going into further detail first i will discuss what's CI/CD?
+
+## What is CI/CD?
+
+- **CI(Continuous Integration)**: Automatically tests our code when changes are made.
+- **CD (Continuous Deployment)**: Automatically deploy your code to production when tests pass.
+
+### Basically what happens
+
+- We write code and push to GitHub
+- **GitHub Actions** automatically tests it 
+- If tests pass, it automatically deploys to production
+- If tests fail, it stops and tells you what's wrong
+
+> In order to have this we need to define a workflow(which is used by github actions) which enables us to implement this
+
+## How would GitHub Actions help with this project?
+
+### Automate Testing(Pull Request Workflow)
+
+```text
+# When someone creates a pull request
+on: pull_request
+
+# Automatically run:
+- pulumi preview  # Show what infrastructure changes would happen
+- Comment results on the PR  # Team can see changes before merging
+```
+
+### Automatic Deployment(Main Branch Workflow)
+
+```text 
+# When code is merged to main branch
+on: 
+  push:
+    branches: [main]
+
+# Automatically run:
+- pulumi up  # Deploy the infrastructure changes
+```
+
+### Safety features(Let say we need a Destroy Workflow)
+
+```text 
+# Only run when manually triggered
+on: workflow_dispatch
+
+# Require typing "destroy" to confirm
+# Then run: pulumi destroy
+```
+
+> The above are the workflow which i am going to implement in here
+
