@@ -1,0 +1,51 @@
+# This workflow will automatically run pulumi preview whenever someone creates a pull request
+
+name: Pulumi preview
+ 
+on:
+  pull_request: 
+    branches: [main]
+      paths:
+        - '**.py'
+        - 'requirements.txt'
+        - 'Pulumi.yaml'
+        - 'user_script.sh'
+
+jobs: 
+  # GitHub provides a clean vm everytime this workflow runs 
+  # so the initial steps have to listed out
+  preview: 
+    name: Preview infrastructure change
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v4
+        with: 
+          python-version: '3.10'
+        
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Configure AWS Creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Run Pulumi Preview
+        uses: pulumi/actions@v6
+        with: 
+          command: preview
+          stack-name: dev
+          comment-on-pr: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env: 
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          
