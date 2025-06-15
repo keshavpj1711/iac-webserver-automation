@@ -277,7 +277,6 @@ Validate the complete Infrastructure as Code workflow:
 
 - **Multi-Instance Setup** - Add Application Load Balancer with multiple t2.micro instances
 - **Monitoring** - Integrate CloudWatch metrics and alarms (Free Tier)
-- **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
 - **Multi-Environment** - Separate dev/staging/prod stacks
 
 ## 📄 License
