@@ -216,6 +216,12 @@ It contains your actual infrastructure.
 
 # GitHub Actions CI/CD
 
+## Why am i not implementing it here?
+
+Finally i think that implement GitHub Actions is not suitable due to the following reasons:
+- **SSH Key Management Complexity**
+  - SSH keys exist locally but not in GitHub Actions runners, causing infrastructure replacement when keys are regenerated
+
 ## What is it?
 
 **GitHub Actions** is a **CI/CD platform** built into GitHub that lets us automate tasks when certain events happen in our repo.
