@@ -5,11 +5,11 @@ name: Pulumi preview
 on:
   pull_request: 
     branches: [main]
-      paths:
-        - '**.py'
-        - 'requirements.txt'
-        - 'Pulumi.yaml'
-        - 'user_script.sh'
+    paths:
+      - '**.py'
+      - 'requirements.txt'
+      - 'Pulumi.yaml'
+      - 'user_script.sh'
 
 jobs: 
   # GitHub provides a clean vm everytime this workflow runs 
